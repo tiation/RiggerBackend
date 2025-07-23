@@ -10,6 +10,11 @@ const hpp = require('hpp');
 const session = require('express-session');
 require('dotenv').config();
 
+// Import enterprise logging and monitoring
+const { logger } = require('./src/lib/logging/logger');
+const { createRequestLogger, enhancedRequestLogger, errorLogger } = require('./src/middleware/requestLogger');
+const { metrics } = require('./src/lib/monitoring/metrics');
+
 // Import routes
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
@@ -22,7 +27,7 @@ const worksafeRoutes = require('./routes/worksafe');
 
 // Import middleware
 const { errorHandler } = require('./middleware/errorHandler');
-const logger = require('./middleware/logger');
+const oldLogger = require('./middleware/logger'); // Keep for backwards compatibility
 const setupSecurity = require('./middleware/security');
 const { protect } = require('./middleware/auth');
 const { verifyEmail } = require('./middleware/emailVerification');
@@ -32,8 +37,20 @@ const { setup2FA, verify2FASetup, verify2FAToken, disable2FA } = require('./midd
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Initialize application
+logger.info('Starting RiggerBackend server', {
+  port: PORT,
+  environment: process.env.NODE_ENV,
+  nodeVersion: process.version,
+  timestamp: new Date().toISOString(),
+});
+
 // Apply security middleware
 setupSecurity(app);
+
+// Enterprise request logging (must be early in middleware stack)
+app.use(createRequestLogger());
+app.use(enhancedRequestLogger);
 
 // Apply session management
 app.use(session(sessionConfig));
@@ -73,8 +90,8 @@ app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Logging middleware
-app.use(logger);
+// Legacy logging middleware (keeping for backwards compatibility)
+// app.use(oldLogger); // Commented out as we're using enterprise logging now
 
 // Static files for uploads
 app.use('/uploads', express.static('uploads'));
@@ -83,14 +100,33 @@ app.use('/uploads', express.static('uploads'));
 app.use(express.static('.'));
 app.use('/assets', express.static('assets'));
 
-// Health check endpoint
+// Health check endpoint with detailed metrics
 app.get('/health', (req, res) => {
-  res.status(200).json({
+  const healthData = {
     status: 'OK',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    environment: process.env.NODE_ENV
-  });
+    environment: process.env.NODE_ENV,
+    version: require('./package.json').version,
+    memory: process.memoryUsage(),
+    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+  };
+  
+  logger.info('Health check requested', { healthData });
+  metrics.recordApiRequest('GET', '/health', 200, 0);
+  
+  res.status(200).json(healthData);
+});
+
+// Metrics endpoint (for Prometheus/Grafana)
+app.get('/metrics', (req, res) => {
+  if (process.env.NODE_ENV === 'production' && !req.headers.authorization) {
+    return res.status(401).json({ error: 'Authorization required' });
+  }
+  
+  const prometheusMetrics = metrics.exportPrometheusMetrics();
+  res.set('Content-Type', 'text/plain');
+  res.send(prometheusMetrics);
 });
 
 // API routes
@@ -140,6 +176,9 @@ app.get('/', (req, res) => {
   res.sendFile('index.html', { root: __dirname });
 });
 
+// Enterprise error logging middleware
+app.use(errorLogger);
+
 // Error handling middleware (must be last)
 app.use(errorHandler);
 
@@ -156,33 +195,85 @@ app.use((req, res) => {
   }
 });
 
-// Database connection
+// Database connection with enhanced logging
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/riggerhire')
 .then(() => {
-  console.log('Connected to MongoDB');
+  logger.info('Connected to MongoDB', {
+    uri: process.env.MONGODB_URI ? '[REDACTED]' : 'mongodb://localhost:27017/riggerhire',
+    readyState: mongoose.connection.readyState,
+  });
+  
+  // Record database connection metric
+  metrics.setGauge('database_connected', 1);
   
   // Start server
-  app.listen(PORT, () => {
-    console.log(`RiggerHire API server running on port ${PORT}`);
-    console.log(`Environment: ${process.env.NODE_ENV}`);
-    console.log(`Health check: http://localhost:${PORT}/health`);
+  const server = app.listen(PORT, () => {
+    logger.info('RiggerBackend server started successfully', {
+      port: PORT,
+      environment: process.env.NODE_ENV,
+      healthCheck: `http://localhost:${PORT}/health`,
+      metricsEndpoint: `http://localhost:${PORT}/metrics`,
+    });
+    
+    // Record server start metric
+    metrics.recordBusinessEvent('server_started', 'application');
+  });
+  
+  // Track active connections
+  let activeConnections = 0;
+  server.on('connection', (socket) => {
+    activeConnections++;
+    metrics.recordActiveConnections(activeConnections);
+    
+    socket.on('close', () => {
+      activeConnections--;
+      metrics.recordActiveConnections(activeConnections);
+    });
   });
 })
 .catch((error) => {
-  console.error('Database connection failed:', error);
+  logger.fatal('Database connection failed', error);
+  metrics.setGauge('database_connected', 0);
   process.exit(1);
 });
 
-// Graceful shutdown
+// Graceful shutdown with enhanced logging
 process.on('SIGINT', async () => {
-  console.log('Received SIGINT. Graceful shutdown initiated...');
+  logger.info('Received SIGINT. Graceful shutdown initiated...');
   
   try {
+    // Flush metrics before shutdown
+    await metrics.flushNow();
+    logger.info('Metrics flushed successfully');
+    
+    // Close database connection
     await mongoose.connection.close();
-    console.log('MongoDB connection closed.');
+    logger.info('MongoDB connection closed successfully');
+    
+    // Record shutdown event
+    metrics.recordBusinessEvent('server_shutdown', 'application');
+    await metrics.flushNow();
+    
+    logger.info('Graceful shutdown completed');
     process.exit(0);
   } catch (error) {
-    console.error('Error during graceful shutdown:', error);
+    logger.fatal('Error during graceful shutdown', error);
+    process.exit(1);
+  }
+});
+
+process.on('SIGTERM', async () => {
+  logger.info('Received SIGTERM. Graceful shutdown initiated...');
+  
+  try {
+    await metrics.flushNow();
+    await mongoose.connection.close();
+    metrics.recordBusinessEvent('server_shutdown', 'application');
+    await metrics.flushNow();
+    logger.info('Graceful shutdown completed');
+    process.exit(0);
+  } catch (error) {
+    logger.fatal('Error during graceful shutdown', error);
     process.exit(1);
   }
 });
