@@ -1,134 +1,227 @@
-<div align="center">
+# RiggerBackend
 
-# ⚙️ RiggerBackend - Core API Services
+<div align="center">
 
 ### **A ChaseWhiteRabbit NGO Initiative**
 *Ethical Backend Architecture for Blue-Collar Excellence*
 
-[![Build Status](https://github.com/chasewhiterabbit/riggerbackend/workflows/CI/badge.svg)](https://github.com/chasewhiterabbit/riggerbackend/actions)
+[![Build Status](https://github.com/tiation/RiggerBackend/workflows/CI/badge.svg)](https://github.com/tiation/RiggerBackend/actions)
 [![Security Rating](https://img.shields.io/badge/security-A+-brightgreen)](docs/security/)
 [![Ethics Compliance](https://img.shields.io/badge/ethics-compliant-blue)](docs/ethics/)
-[![API Coverage](https://img.shields.io/badge/API%20coverage-95%25-green)](docs/testing/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ```ascii
     ⚙️ POWERING THE DIGITAL RIGGING PLATFORM ⚙️
     ╔════════════════════════════════════════════╗
-    ║  MICROSERVICES • SECURITY • SCALABILITY   ║
+    ║  MICROSERVICES • SECURITY • SCALABILITY                          ║
     ╚════════════════════════════════════════════╝
     🔐 AUTH • 📊 DATA • 🌐 API • 🔍 SEARCH • 📱 SYNC
 ```
 
 </div>
 
-## 🎯 Backend Mission
+## 🎯 Project Overview
 
-## 📍 Repository Location 6 Structure\n\n**Current Location**: `/Users/tiaastor/Github/tiation-repos/RiggerBackend/`\n\nThis repository is part of the **Tiation Enterprise Repository Structure**, specifically designed to house **ChaseWhiteRabbit NGO's** technology initiatives following enterprise-grade development practices.\n\n### 🏗️ Enterprise Ecosystem\n- **Repository Collection**: [Enterprise Repository Index](../ENTERPRISE_REPOSITORY_INDEX.md)\n- **Connect Platform**: [RiggerConnect-web](../RiggerConnect-web/), [RiggerConnect-android](../RiggerConnect-android/), [RiggerConnect-ios](../RiggerConnect-ios/)\n- **Hub Applications**: [RiggerHub-web](../RiggerHub-web/), [RiggerHub-android](../RiggerHub-android/), [RiggerHub-ios](../RiggerHub-ios/)\n- **Shared Libraries**: [RiggerShared](../RiggerShared/)\n\n### 🌟 NGO Integration\nAs a **ChaseWhiteRabbit NGO Initiative**, this project adheres to:\n- ✅ **Enterprise-grade development practices**\n- ✅ **Ethical technology standards**\n- ✅ **Worker empowerment focus**\n- ✅ **DevOps best practices with CI/CD**\n- ✅ **Open development transparency**\n\n## 🎯 Backend Foundation\n\nRiggerBackend serves as the robust, scalable, and ethical foundation for all RiggerConnect and RiggerHub applications. Built with **ChaseWhiteRabbit NGO's** commitment to worker empowerment, our backend prioritizes data sovereignty, algorithmic fairness, and industrial-grade reliability.
+RiggerBackend serves as the robust, scalable, and ethical foundation for all RiggerConnect and RiggerHub applications. Built with ChaseWhiteRabbit NGO's commitment to worker empowerment, our backend prioritizes data sovereignty, algorithmic fairness, and industrial-grade reliability.
 
-### 🌟 Core Services
-- 🔐 **Authentication & Authorization** - Secure identity management
-- 👥 **User Management** - Profile and community features
-- 💼 **Job Matching Engine** - AI-powered, bias-free job recommendations
-- 🛡️ **Safety Protocol APIs** - Real-time safety data and alerts
-- 📊 **Analytics Engine** - Privacy-first insights and metrics
-- 🔍 **Search & Discovery** - Intelligent content and connection matching
+### 🌟 Key Features
+- 🚀 **Modern Architecture** - Built with latest technologies and best practices
+- 🔒 **Enterprise Security** - Multi-layer security with encryption and access control
+- ⚡ **High Performance** - Optimized for speed and scalability
+- 🌟 **Ethical Design** - Privacy-first, bias-free, worker-empowering technology
 
-## 🏗️ Architecture Overview
+## 📍 Repository Location & Structure
 
-### Technology Stack
-- **Runtime**: Node.js 20 LTS with TypeScript
-- **Framework**: Fastify with enterprise plugins
-- **Database**: PostgreSQL with Supabase integration
-- **Cache**: Redis for session and data caching
-- **Message Queue**: Bull Queue with Redis backend
-- **Search**: ElasticSearch for full-text search
-- **File Storage**: S3-compatible object storage
+**Current Location**: `/Users/tiaastor/Github/tiation-repos/RiggerBackend/`
 
-### Enterprise Features
-- ✅ **Auto-scaling**: Kubernetes horizontal pod autoscaling
-- ✅ **Load Balancing**: NGINX with health checks
-- ✅ **Circuit Breakers**: Resilient failure handling
-- ✅ **Rate Limiting**: DDoS protection and fair usage
-- ✅ **Monitoring**: Comprehensive metrics and alerting
+This repository is part of the **Tiation Enterprise Repository Structure**, specifically designed to house **ChaseWhiteRabbit NGO's** technology initiatives following enterprise-grade development practices.
 
-## 🚀 Quick Start
+### 🏗️ Enterprise Ecosystem
+- **Repository Collection**: [Enterprise Repository Index](../ENTERPRISE_REPOSITORY_INDEX.md)
+- **Related Projects**: [List related repositories]
+- **Infrastructure**: Hosted on Hostinger VPS cluster with enterprise DevOps practices
 
-### Development Setup
+### 🌟 NGO Integration
+As a **ChaseWhiteRabbit NGO Initiative**, this project adheres to:
+- ✅ **Enterprise-grade development practices**
+- ✅ **Ethical technology standards**
+- ✅ **Worker empowerment focus**
+- ✅ **DevOps best practices with CI/CD**
+- ✅ **Open development transparency**
+
+## 🚀 Technology Stack
+
+| Technology | Version | Purpose |
+|------------|---------|------------|
+| Node.js, Express, TypeScript | Latest | Core technology stack |
+| TypeScript | Latest | Core technology stack |
+| ESLint | Latest | Core technology stack |
+| Prettier | Latest | Core technology stack |
+
+## ⚡ Quick Start
+
+### Prerequisites
+- System requirements as per documentation
+- Development tools and dependencies
+- Configuration and setup requirements
+
+### Installation
+
 ```bash
 # Clone the repository
-git clone git@github.com:chasewhiterabbit/riggerbackend.git
-cd riggerbackend
+git clone git@github.com:tiation/RiggerBackend.git
+cd RiggerBackend
 
 # Install dependencies
 npm install
 
-# Set up environment
+# Set up environment variables
 cp .env.example .env.local
 # Edit .env.local with your configuration
-
-# Start development services
-docker-compose up -d postgres redis elasticsearch
-
-# Run database migrations
-npm run db:migrate
 
 # Start development server
 npm run dev
 
-# Run tests
-npm test
-
-# Run security audit
-npm run security:audit
+# Open browser to http://localhost:5000
 ```
+
+### Development Workflow
+
+```bash
+# Development server with hot reload
+npm run dev
+
+# Type checking
+npm run type-check
+
+# Linting and formatting
+npm run lint
+npm run format
+
+# Testing
+npm test
+npm run test:coverage
+
+# Build for production
+npm run build
+```
+
+## 🏗️ Architecture Overview
+
+### System Design
+Modern, scalable architecture following enterprise best practices
+
+### Core Components
+- Core application logic
+- User interface components
+- Data management layer
+
+### Integration Points
+- Database integration
+- Authentication system
+- API endpoints
 
 ## 📚 Documentation
 
 | Resource | Description |
 |----------|-------------|
-| [📖 API Reference](docs/api/) | Complete API documentation |
+| [🚀 Setup Guide](docs/setup/) | Development environment setup |
 | [🏗️ Architecture](docs/architecture/) | System design and patterns |
-| [🔒 Security](docs/security/) | Security protocols and standards |
-| [🧪 Testing](docs/testing/) | Quality assurance strategies |
-| [⚖️ Ethics](docs/ethics/) | Responsible AI and ethical guidelines |
 | [🚀 Deployment](docs/deployment/) | Production deployment guide |
+| [🔧 Troubleshooting](docs/troubleshooting/) | Common issues and solutions |
+| [⚖️ Ethics Framework](docs/ethics/) | Responsible AI and ethical guidelines |
 
-## 🔐 Security & Privacy
+## 🔄 CI/CD Pipeline
+
+Our enterprise-grade deployment pipeline ensures reliable, automated delivery:
+
+| Environment | Trigger | Deployment Target | Purpose |
+|-------------|---------|-------------------|----------|
+| **Development** | Pull Request | Development Server | Feature testing and review |
+| **Staging** | Merge to `develop` | Staging Environment | Pre-production validation |
+| **Production** | Merge to `main` | Production Cluster | Live application deployment |
+
+### Infrastructure Partners
+- **Primary CI/CD**: docker.sxc.codes (145.223.22.7)
+- **Kubernetes Management**: helm.sxc.codes (145.223.21.248)
+- **GitLab CI/CD**: gitlab.sxc.codes (145.223.22.10)
+- **Monitoring**: grafana.sxc.codes (153.92.214.1)
+
+## 🔒 Security & Compliance
 
 ### Security Features
-- **JWT Authentication**: Secure token-based authentication
-- **Rate Limiting**: API abuse prevention
-- **Input Validation**: Comprehensive request sanitization
-- **SQL Injection Protection**: Parameterized queries only
-- **CORS Configuration**: Strict cross-origin policies
+- **Authentication**: JWT-based authentication with multi-factor support
+- **Data Protection**: End-to-end encryption and GDPR compliance
+- **Access Control**: Role-based access control (RBAC)
+- **Encryption**: AES-256 encryption for data at rest and in transit
 
 ### Ethical AI Standards
 - **Bias Prevention**: Regular algorithmic auditing
 - **Explainable Decisions**: Transparent recommendation logic
 - **Human Oversight**: Manual review capabilities
-- **Fairness Metrics**: Continuous bias monitoring
+- **Privacy by Design**: Data minimization and user control
 
-## 📊 Performance Metrics
+## 🧪 Testing & Quality Assurance
 
-### Target Benchmarks
-- **Response Time**: < 200ms (95th percentile)
-- **Throughput**: 10,000+ requests/second
-- **Uptime**: 99.9% availability SLA
-- **Error Rate**: < 0.1% 4xx/5xx responses
+```bash
+# Run all tests
+npm test
+
+# Coverage report
+npm run test:coverage
+
+# E2E testing
+npm run test:e2e
+
+# Performance testing
+npm run test:perf
+
+# Security audit
+npm run security:audit
+```
+
+### Quality Standards
+- **Code Coverage**: 90%+ test coverage
+- **Performance**: < 200ms response time, 99.9% uptime
+- **Security**: OWASP Top 10 compliance, regular security audits
+- **Accessibility**: WCAG 2.1 AA compliant
+
+## 🤝 Contributing
+
+We welcome contributions from the community! Please read our contributing guidelines before submitting pull requests.
+
+### Development Guidelines
+1. Follow the [ChaseWhiteRabbit NGO Code of Conduct](docs/CODE_OF_CONDUCT.md)
+2. Use the established [coding standards](docs/setup/coding-standards.md)
+3. Include tests for all new features
+4. Update documentation for changes
+5. Ensure accessibility compliance
+
+### Pull Request Process
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes with proper testing
+4. Commit your changes (`git commit -m 'Add amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request with detailed description
+
+### Getting Started with Contributing
+- Check out our [Good First Issues](https://github.com/tiation/RiggerBackend/labels/good%20first%20issue)
+- Read the [Development Setup Guide](docs/setup/)
+- Join our [Community Discussions](https://github.com/tiation/RiggerBackend/discussions)
 
 ## 🌍 Social Impact
 
 Supporting ChaseWhiteRabbit NGO's mission through:
-- Efficient resource allocation reducing operational costs
-- Fair and transparent fee structures
-- Promoting ethical employment practices
-- Supporting regional economic development
-- Ensuring worker safety and compliance
+- Professional development through ethical technology
+- Worker empowerment and career advancement
+- Community building and knowledge sharing
+- Ethical AI and bias prevention
 
 ## 📞 Support & Contact
 
 ### Technical Support
-- 📧 **API Support**: api-support@chasewhiterabbit.org
+- 📧 **Project Support**: support@chasewhiterabbit.org
 - 🔒 **Security Issues**: security@chasewhiterabbit.org
 - 📖 **Documentation**: docs@chasewhiterabbit.org
 - ⚖️ **Ethics Concerns**: ethics@chasewhiterabbit.org
@@ -136,6 +229,12 @@ Supporting ChaseWhiteRabbit NGO's mission through:
 ### ChaseWhiteRabbit NGO
 - 🌐 **Website**: [chasewhiterabbit.org](https://chasewhiterabbit.org)
 - 📧 **Contact**: info@chasewhiterabbit.org
+- 🐦 **Twitter**: [@ChaseWhiteRabbitNGO](https://twitter.com/ChaseWhiteRabbitNGO)
+
+### Development Team
+- 🔧 **Technical Lead**: tiatheone@protonmail.com
+- 🌐 **Enterprise Inquiries**: garrett@sxc.codes
+- 📧 **General Support**: garrett.dillman@gmail.com
 
 ## 📜 License
 
@@ -143,27 +242,65 @@ This project is licensed under the **GNU General Public License v3.0** - see the
 
 ### Open Source Commitment
 As a **ChaseWhiteRabbit NGO** initiative, we believe in:
-- **Transparency**: All backend logic is open and auditable
-- **Community Ownership**: Improvements benefit the entire rigger community
+- **Transparency**: All code is open and auditable
+- **Community Ownership**: Improvements benefit the entire community
 - **Ethical Technology**: No vendor lock-in or proprietary restrictions
 - **Worker Empowerment**: Technology that serves users, not profits
+
+## 🙏 Acknowledgments
+
+- **ChaseWhiteRabbit NGO** - For their vision and partnership in ethical technology
+- **Tiation Team** - For technical excellence and innovative solutions
+- **Open Source Community** - For the amazing tools and libraries that make this possible
+- **Contributors** - Thank you to all who have contributed to this project
+
+## 📈 Project Status
+
+- **Current Version**: Latest
+- **Development Status**: Active Development
+- **Last Updated**: 2025-07-24
+- **Next Milestone**: Feature completion and testing
 
 ---
 
 <div align="center">
 
-### ⚙️ Built for Reliability, Powered by Ethics ⚙️
+### 🏗️ **ChaseWhiteRabbit NGO Initiative** 🏗️
 
-**ChaseWhiteRabbit NGO** | *Backend Infrastructure for Social Good*
+**Transforming Lives Through Ethical Technology**
 
 ```ascii
-🔧 SECURE APIS • ETHICAL AI • WORKER EMPOWERMENT 🔧
+🔧 ENTERPRISE GRADE • ETHICAL • STRIKING DESIGN 🔧
 ```
 
 [![ChaseWhiteRabbit NGO](https://img.shields.io/badge/ChaseWhiteRabbit-NGO-orange)](https://chasewhiterabbit.org)
-[![Ethical Backend](https://img.shields.io/badge/Backend-Ethical-green)](docs/ethics/)
-[![Open Source](https://img.shields.io/badge/Open%20Source-Always-blue)](#)
+[![Enterprise Grade](https://img.shields.io/badge/Enterprise-Grade-blue)](docs/)
+[![Ethical Technology](https://img.shields.io/badge/Technology-Ethical-green)](docs/ethics/)
+[![DevOps Ready](https://img.shields.io/badge/DevOps-Ready-purple)](docs/deployment/)
 
-*"The best APIs are invisible to users but indispensable to their success."*
+### 🌐 **Infrastructure & Hosting**
+
+**Hostinger VPS Cluster** | **Enterprise-Grade DevOps**
+
+- **🐳 Primary CI/CD**: docker.sxc.codes (145.223.22.7)
+- **⚓ Helm Manager**: helm.sxc.codes (145.223.21.248) 
+- **📊 Monitoring**: grafana.sxc.codes (153.92.214.1)
+- **🗄️ Database**: supabase.sxc.codes (93.127.167.157)
+
+---
+
+**🏗️ RiggerBackend - ChaseWhiteRabbit NGO Initiative 🏗️**
+
+*Enterprise-grade technology empowering construction industry professionals*
+
+[![Tiation Platform](https://img.shields.io/badge/🔮_Platform-Tiation-00FFFF?style=for-the-badge&labelColor=0A0A0A)](https://tiation.github.io/)
+[![Project Badge](https://img.shields.io/badge/🏗️_RiggerBackend-FF00FF?style=for-the-badge&labelColor=0A0A0A)](https://tiation.github.io/)
+[![ChaseWhiteRabbit NGO](https://img.shields.io/badge/🌟_NGO-Mission-00FFFF?style=for-the-badge&labelColor=0A0A0A)](https://tiation.github.io/)
+
+**Ethical • Enterprise • Empowering**
+
+**[Discover More Projects →](https://tiation.github.io/)**
+
+*"Technology should lift up workers, not replace them."*
 
 </div>
