@@ -25,6 +25,11 @@ const agentRoutes = require('./routes/agents');
 const worksafeRoutes = require('./routes/worksafe');
 // const contactRoutes = require('./routes/contact');
 
+// Import billing routes
+const employerBillingRoutes = require('./routes/billing/employer');
+const workerBillingRoutes = require('./routes/billing/worker');
+const ngoTransparencyRoutes = require('./routes/billing/ngo-transparency');
+
 // Import middleware
 const { errorHandler } = require('./middleware/errorHandler');
 const oldLogger = require('./middleware/logger'); // Keep for backwards compatibility
@@ -152,6 +157,13 @@ app.use('/api/payments', protect, paymentRoutes);
 app.use('/api/agents', protect, agentRoutes);
 app.use('/api/worksafe', protect, worksafeRoutes);
 // app.use('/api/contact', contactRoutes);
+
+// Billing routes (protected)
+app.use('/api/billing/employer', protect, employerBillingRoutes);
+app.use('/api/billing/worker', protect, workerBillingRoutes);
+
+// NGO Transparency routes (public access)
+app.use('/api/transparency', ngoTransparencyRoutes);
 
 // API documentation route
 app.get('/api', (req, res) => {

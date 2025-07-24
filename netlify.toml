@@ -1,0 +1,149 @@
+[build]
+  publish = "public"
+  command = "npm run build && mkdir -p public && cp -r docs/* public/ 2>/dev/null || mkdir -p public/docs && echo 'API Documentation' > public/index.html"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NODE_ENV = "production"
+
+# API documentation and static files only (backend runs on separate infrastructure)
+[[redirects]]
+  from = "/api/*"
+  to = "https://api.riggerbackend.tiation.net/:splat"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/docs/*"
+  to = "/docs/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/health"
+  to = "https://api.riggerbackend.tiation.net/health"
+  status = 302
+
+# Default redirect to documentation
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Enterprise-grade security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Frame protection
+    X-Frame-Options = "SAMEORIGIN"
+    
+    # XSS protection
+    X-XSS-Protection = "1; mode=block"
+    
+    # MIME type sniffing protection
+    X-Content-Type-Options = "nosniff"
+    
+    # Referrer policy for privacy
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Strict transport security (HTTPS only)
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    
+    # Content Security Policy for documentation
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      img-src 'self' data: https: blob:;
+      font-src 'self' https://fonts.gstatic.com;
+      connect-src 'self' https://*.tiation.net;
+      media-src 'self' https:;
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+      frame-ancestors 'self';
+      upgrade-insecure-requests;
+    """
+    
+    # Permissions policy
+    Permissions-Policy = """
+      accelerometer=(),
+      ambient-light-sensor=(),
+      autoplay=(),
+      battery=(),
+      camera=(),
+      cross-origin-isolated=(),
+      display-capture=(),
+      document-domain=(),
+      encrypted-media=(),
+      execution-while-not-rendered=(),
+      execution-while-out-of-viewport=(),
+      fullscreen=(),
+      geolocation=(),
+      gyroscope=(),
+      keyboard-map=(),
+      magnetometer=(),
+      microphone=(),
+      midi=(),
+      navigation-override=(),
+      payment=(),
+      picture-in-picture=(),
+      publickey-credentials-get=(),
+      screen-wake-lock=(),
+      sync-xhr=(),
+      usb=(),
+      web-share=(),
+      xr-spatial-tracking=()
+    """
+
+# API documentation caching
+[[headers]]
+  for = "/docs/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# Static assets caching
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# OpenAPI/Swagger documentation
+[[headers]]
+  for = "/swagger.json"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Content-Type = "application/json"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/openapi.yaml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Content-Type = "application/yaml"
+    Access-Control-Allow-Origin = "*"
+
+# Postman collection
+[[headers]]
+  for = "/*.postman_collection.json"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Content-Type = "application/json"
+    Content-Disposition = "attachment"
+
+# Environment-specific build settings
+[context.production]
+  command = "npm run build && mkdir -p public && cp -r docs/* public/ 2>/dev/null || mkdir -p public/docs && echo 'RiggerBackend API Documentation - Production' > public/index.html"
+
+[context.staging]
+  command = "npm run build && mkdir -p public && cp -r docs/* public/ 2>/dev/null || mkdir -p public/docs && echo 'RiggerBackend API Documentation - Staging' > public/index.html"
+
+[context.branch-deploy]
+  command = "npm run build && mkdir -p public && cp -r docs/* public/ 2>/dev/null || mkdir -p public/docs && echo 'RiggerBackend API Documentation - Development' > public/index.html"
+
+# Functions for API proxy (if needed)
+[functions]
+  directory = "netlify/functions"
+
+# Forms for contact/feedback
+[forms]
+  spam_filter = true
