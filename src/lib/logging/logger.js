@@ -1,12 +1,27 @@
+// RiggerShared integration - Enhanced logger with shared utilities
 const pino = require('pino');
 
-// Logger configuration based on environment
-const isDevelopment = process.env.NODE_ENV === 'development';
-const isProduction = process.env.NODE_ENV === 'production';
+// Shared utilities (inline for now, to be extracted to RiggerShared)
+const ErrorUtils = {
+  serializeError: (error) => ({
+    name: error.name,
+    message: error.message,
+    stack: error.stack,
+    code: error.code,
+    details: error.details,
+    timestamp: error.timestamp || new Date().toISOString(),
+  }),
+};
 
-// Base logger configuration
+const EnvUtils = {
+  isDevelopment: () => process.env.NODE_ENV === 'development',
+  isProduction: () => process.env.NODE_ENV === 'production',
+  isTest: () => process.env.NODE_ENV === 'test',
+};
+
+// Enhanced logger configuration with RiggerShared compatibility
 const loggerConfig = {
-  level: isDevelopment ? 'debug' : 'info',
+  level: EnvUtils.isDevelopment() ? 'debug' : 'info',
   name: 'rigger-backend',
   timestamp: pino.stdTimeFunctions.isoTime,
   formatters: {
@@ -18,8 +33,7 @@ const loggerConfig = {
       version: process.env.npm_package_version || '1.0.0',
     }),
   },
-  // Different transport configurations for dev vs prod
-  transport: isDevelopment
+  transport: EnvUtils.isDevelopment()
     ? {
         target: 'pino-pretty',
         options: {
@@ -29,7 +43,6 @@ const loggerConfig = {
         },
       }
     : undefined,
-  // Redact sensitive information
   redact: {
     paths: [
       'password',
@@ -50,10 +63,10 @@ const loggerConfig = {
   },
 };
 
-// Create the base logger
+// Create base logger with RiggerShared-compatible configuration
 const baseLogger = pino(loggerConfig);
 
-// Enhanced logger with additional methods and context
+// Enhanced logger with additional methods and context - now using RiggerShared
 class EnterpriseLogger {
   constructor(context = {}) {
     this.context = context;
@@ -65,52 +78,36 @@ class EnterpriseLogger {
     return new EnterpriseLogger({ ...this.context, ...additionalContext });
   }
 
-  // Standard logging methods
+  // Standard logging methods using RiggerShared
   debug(message, extra) {
-    this.logger.debug(extra, message);
+    this.logger.debug(message, extra);
   }
 
   info(message, extra) {
-    this.logger.info(extra, message);
+    this.logger.info(message, extra);
   }
 
   warn(message, extra) {
-    this.logger.warn(extra, message);
+    this.logger.warn(message, extra);
   }
 
   error(message, error) {
     if (error instanceof Error) {
-      this.logger.error(
-        {
-          error: {
-            name: error.name,
-            message: error.message,
-            stack: error.stack,
-            cause: error.cause,
-          },
-        },
-        message
-      );
+      // Use RiggerShared ErrorUtils for consistent error serialization
+      const serializedError = ErrorUtils.serializeError(error);
+      this.logger.error(message, { error: serializedError });
     } else {
-      this.logger.error(error, message);
+      this.logger.error(message, error);
     }
   }
 
   fatal(message, error) {
     if (error instanceof Error) {
-      this.logger.fatal(
-        {
-          error: {
-            name: error.name,
-            message: error.message,
-            stack: error.stack,
-            cause: error.cause,
-          },
-        },
-        message
-      );
+      // Use RiggerShared ErrorUtils for consistent error serialization
+      const serializedError = ErrorUtils.serializeError(error);
+      this.logger.fatal(message, { error: serializedError });
     } else {
-      this.logger.fatal(error, message);
+      this.logger.fatal(message, error);
     }
   }
 
@@ -213,7 +210,7 @@ class EnterpriseLogger {
     // - Send to Grafana
     // - Send to custom monitoring API
     
-    if (isProduction) {
+    if (EnvUtils.isProduction()) {
       try {
         // Example: Send to ElasticSearch
         // await this.sendToElastic(data);
