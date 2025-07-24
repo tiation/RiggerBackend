@@ -30,6 +30,51 @@ RiggerBackend serves as the robust, scalable, and ethical foundation for all Rig
 - ⚡ **High Performance** - Optimized for speed and scalability
 - 🌟 **Ethical Design** - Privacy-first, bias-free, worker-empowering technology
 
+## 🔗 Related Repositories
+
+### Core Platform Components
+
+| Repository | Platform | Description | GitHub SSH URL |
+|------------|----------|-------------|----------------|
+| **RiggerConnect-web** | Web | Professional networking platform | `git@github.com:tiation/RiggerConnect-web.git` |
+| **RiggerConnect-android** | Android | Mobile networking app | `git@github.com:tiation/RiggerConnect-android.git` |
+| **RiggerConnect-ios** | iOS | Mobile networking app | `git@github.com:tiation/RiggerConnect-ios.git` |
+| **RiggerHub-web** | Web | Operations management hub | `git@github.com:tiation/RiggerHub-web.git` |
+| **RiggerHub-android** | Android | Mobile operations hub | `git@github.com:tiation/RiggerHub-android.git` |
+| **RiggerHub-ios** | iOS | Mobile operations hub | `git@github.com:tiation/RiggerHub-ios.git` |
+| **RiggerShared** | Multi-platform | Shared libraries and components | `git@github.com:tiation/RiggerShared.git` |
+
+### Enterprise Integration Architecture
+
+```mermaid
+graph TB
+    RB[RiggerBackend<br/>Core API Services] --> RCW[RiggerConnect-web]
+    RB --> RCA[RiggerConnect-android]
+    RB --> RCI[RiggerConnect-ios]
+    RB --> RHW[RiggerHub-web]
+    RB --> RHA[RiggerHub-android]
+    RB --> RHI[RiggerHub-ios]
+    RS[RiggerShared<br/>Common Libraries] --> RCW
+    RS --> RCA
+    RS --> RCI
+    RS --> RHW
+    RS --> RHA
+    RS --> RHI
+    
+    style RB fill:#FF00FF,color:#000
+    style RCW fill:#00FFFF,color:#000
+    style RS fill:#00FF00,color:#000
+```
+
+### ChaseWhiteRabbit NGO License Framework
+
+All repositories in the Rigger ecosystem are licensed under **GPL v3**, ensuring:
+- ✅ **Open Source Transparency**: Complete code visibility and community auditing
+- ✅ **Ethical Technology Standards**: Algorithmic fairness and bias prevention
+- ✅ **Worker Empowerment Focus**: Technology serving users, not corporate profits
+- ✅ **Community Ownership**: Improvements benefit the entire rigger community
+- ✅ **Corporate Responsibility**: Commercial use must remain open and accessible
+
 ## 📍 Repository Location & Structure
 
 **Current Location**: `/Users/tiaastor/Github/tiation-repos/RiggerBackend/`
@@ -37,7 +82,7 @@ RiggerBackend serves as the robust, scalable, and ethical foundation for all Rig
 This repository is part of the **Tiation Enterprise Repository Structure**, specifically designed to house **ChaseWhiteRabbit NGO's** technology initiatives following enterprise-grade development practices.
 
 ### 🏗️ Enterprise Ecosystem
-- **Repository Collection**: [Enterprise Repository Index](../ENTERPRISE_REPOSITORY_INDEX.md)
+- **Repository Collection**: [Enterprise Repository Index](https://github.com/tiaastor/tiation-repos/blob/mahttps://github.com/tiaastor/tiation-repos/blob/main/ENTERPRISE_REPOSITORY_INDEX.md)
 - **Related Projects**: [List related repositories]
 - **Infrastructure**: Hosted on Hostinger VPS cluster with enterprise DevOps practices
 
