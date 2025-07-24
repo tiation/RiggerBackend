@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.7.0",
+    "@rigger/shared": "file:../RiggerShared/rigger-shared-1.0.0.tgz",
     "@tensorflow/tfjs-node": "^4.22.0",
     "@types/pino-http": "^5.8.4",
     "bcryptjs": "^3.0.2",
