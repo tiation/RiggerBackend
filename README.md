@@ -480,15 +480,15 @@ This project is part of a broader suite of repositories aimed at supporting the 
 
 🔗 **Related Repositories**:
 
-* [`RiggerConnect-web`](https://github.com/tiation/RiggerConnect-web) - Professional networking platform
-* [`RiggerConnect-android`](https://github.com/tiation/RiggerConnect-android) - Native Android networking app
-* [`RiggerConnect-ios`](https://github.com/tiation/RiggerConnect-ios) - Native iOS networking app
-* [`RiggerConnect-capacitor`](https://github.com/tiation/RiggerConnect-capacitor) - Cross-platform mobile app
-* [`RiggerHub-web`](https://github.com/tiation/RiggerHub-web) - Operations management hub ([🌐 Live Demo](https://riggerhub-web.netlify.app/))
-* [`RiggerHub-android`](https://github.com/tiation/RiggerHub-android) - Native Android operations app
-* [`RiggerHub-ios`](https://github.com/tiation/RiggerHub-ios) - Native iOS operations app
-* [`RiggerShared`](https://github.com/tiation/RiggerShared) - Shared libraries and utilities
-* [`RiggerBackend`](https://github.com/tiation/RiggerBackend) - Core backend services and APIs
+* [`RiggerConnect-web`](https://github.com/ChaseWhiteRabbit/RiggerConnect-web) - Professional networking platform for construction workers
+* [`RiggerConnect-android`](https://github.com/ChaseWhiteRabbit/RiggerConnect-android) - Native Android mobile networking application
+* [`RiggerConnect-ios`](https://github.com/ChaseWhiteRabbit/RiggerConnect-ios) - Native iOS mobile networking application
+* [`RiggerConnect-capacitor`](https://github.com/ChaseWhiteRabbit/RiggerConnect-capacitor) - Cross-platform mobile app built with Ionic Capacitor
+* [`RiggerHub-web`](https://github.com/ChaseWhiteRabbit/RiggerHub-web) - Operations management hub for business users ([🌐 Live Demo](https://riggerhub-web.netlify.app/))
+* [`RiggerHub-android`](https://github.com/ChaseWhiteRabbit/RiggerHub-android) - Native Android operations management application
+* [`RiggerHub-ios`](https://github.com/ChaseWhiteRabbit/RiggerHub-ios) - Native iOS operations management application
+* [`RiggerShared`](https://github.com/ChaseWhiteRabbit/RiggerShared) - Shared libraries, components, and utilities
+* [`RiggerBackend`](https://github.com/ChaseWhiteRabbit/RiggerBackend) - Core backend services and APIs for the Rigger ecosystem
 
 📬 **Contact**:
 For questions, ideas, or collaboration inquiries, please reach out to:
