@@ -108,49 +108,241 @@ As a **ChaseWhiteRabbit NGO Initiative**, this project adheres to:
 ## ⚡ Quick Start
 
 ### Prerequisites
-- System requirements as per documentation
-- Development tools and dependencies
-- Configuration and setup requirements
 
-### Installation
+**System Requirements:**
+- **Node.js**: 18.0.0 or higher (LTS recommended)
+- **npm**: 9.0.0 or higher (or yarn 1.22.0+)
+- **PostgreSQL**: 14.0 or higher (for local development)
+- **Redis**: 6.0 or higher (for caching and sessions)
+- **Git**: Latest version for version control
 
+**Development Tools:**
+- **Code Editor**: VS Code (recommended) with TypeScript extension
+- **API Testing**: Postman or Insomnia for API testing
+- **Database Client**: pgAdmin or TablePlus for database management
+
+**Verify Installation:**
 ```bash
-# Clone the repository
+# Check Node.js version
+node --version  # Should be 18.0.0+
+
+# Check npm version
+npm --version   # Should be 9.0.0+
+
+# Check PostgreSQL
+psql --version  # Should be 14.0+
+
+# Check Redis
+redis-server --version  # Should be 6.0+
+```
+
+### Installation & Setup
+
+#### 1. Clone the Repository
+```bash
+# Using SSH (recommended)
 git clone git@github.com:tiation/RiggerBackend.git
 cd RiggerBackend
 
-# Install dependencies
+# Or using HTTPS
+git clone https://github.com/tiation/RiggerBackend.git
+cd RiggerBackend
+```
+
+#### 2. Install Dependencies
+```bash
+# Install project dependencies
 npm install
 
-# Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your configuration
+# Or using Yarn
+yarn install
 
-# Start development server
+# Install global dependencies (if needed)
+npm install -g typescript ts-node nodemon
+```
+
+#### 3. Environment Configuration
+```bash
+# Copy environment template
+cp .env.example .env.local
+
+# Edit .env.local with your configuration
+# Required environment variables:
+```
+
+**Essential Environment Variables:**
+```bash
+# Database Configuration
+DATABASE_URL=postgresql://username:password@localhost:5432/rigger_backend_dev
+REDIS_URL=redis://localhost:6379
+
+# API Configuration
+PORT=5000
+NODE_ENV=development
+API_BASE_URL=http://localhost:5000
+
+# Authentication
+JWT_SECRET=your-super-secret-jwt-key-min-32-chars
+JWT_EXPIRES_IN=24h
+REFRESH_TOKEN_SECRET=your-refresh-token-secret
+
+# Email Configuration (Development)
+SMTP_HOST=smtp.mailtrap.io
+SMTP_PORT=587
+SMTP_USER=your-mailtrap-user
+SMTP_PASS=your-mailtrap-password
+
+# File Upload
+UPLOAD_DIR=./uploads
+MAX_FILE_SIZE=10485760  # 10MB
+
+# External Services
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-supabase-anon-key
+```
+
+#### 4. Database Setup
+```bash
+# Create PostgreSQL database
+createdb rigger_backend_dev
+
+# Run database migrations
+npm run db:migrate
+
+# Seed database with sample data (optional)
+npm run db:seed
+
+# Reset database (development only)
+npm run db:reset
+```
+
+#### 5. Start Development Server
+```bash
+# Start development server with hot reload
 npm run dev
 
-# Open browser to http://localhost:5000
+# Server will start at http://localhost:5000
+# API documentation available at http://localhost:5000/api/docs
 ```
 
 ### Development Workflow
 
+#### Daily Development Commands
 ```bash
-# Development server with hot reload
+# Start development server
 npm run dev
+
+# Start with debugging
+npm run dev:debug
 
 # Type checking
 npm run type-check
+npm run type-check:watch  # Watch mode
 
-# Linting and formatting
-npm run lint
-npm run format
+# Code quality
+npm run lint              # ESLint
+npm run lint:fix          # Auto-fix ESLint issues
+npm run format            # Prettier formatting
+npm run format:check      # Check formatting
 
 # Testing
-npm test
-npm run test:coverage
+npm test                  # Run all tests
+npm run test:watch        # Watch mode
+npm run test:coverage     # Coverage report
+npm run test:e2e          # End-to-end tests
 
+# Database operations
+npm run db:migrate        # Run migrations
+npm run db:rollback       # Rollback last migration
+npm run db:seed           # Seed database
+npm run db:reset          # Reset database
+
+# Build and deployment
+npm run build             # Production build
+npm run start             # Start production server
+npm run preview           # Preview production build
+```
+
+#### Production Build
+```bash
 # Build for production
 npm run build
+
+# Test production build locally
+npm run start
+
+# Deploy using Docker
+npm run docker:build
+npm run docker:run
+```
+
+### API Documentation
+
+Once the server is running, you can access:
+- **Swagger UI**: http://localhost:5000/api/docs
+- **API Health Check**: http://localhost:5000/api/health
+- **API Status**: http://localhost:5000/api/status
+
+### Common Development Tasks
+
+#### Creating New API Endpoints
+```bash
+# Generate new controller
+npm run generate:controller UserController
+
+# Generate new model
+npm run generate:model User
+
+# Generate new migration
+npm run generate:migration create_users_table
+```
+
+#### Testing Your Setup
+```bash
+# Run health check
+curl http://localhost:5000/api/health
+
+# Expected response:
+# {"status":"ok","timestamp":"2024-01-01T00:00:00.000Z"}
+
+# Test authentication endpoint
+curl -X POST http://localhost:5000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"password"}'
+```
+
+### Troubleshooting Setup Issues
+
+#### Database Connection Issues
+```bash
+# Check PostgreSQL is running
+pg_isready -h localhost -p 5432
+
+# Connect to database manually
+psql -h localhost -U your_username -d rigger_backend_dev
+
+# Check database exists
+\l
+```
+
+#### Port Already in Use
+```bash
+# Find process using port 5000
+lsof -ti:5000
+
+# Kill process if needed
+kill -9 $(lsof -ti:5000)
+
+# Or use different port in .env.local
+PORT=5001
+```
+
+#### Node.js Version Issues
+```bash
+# Using nvm to manage Node.js versions
+nvm install 18
+nvm use 18
+nvm alias default 18
 ```
 
 ## 🏗️ Architecture Overview
@@ -280,8 +472,7 @@ Supporting ChaseWhiteRabbit NGO's mission through:
 
 ### Development Team
 - 🔧 **Technical Lead**: tiatheone@protonmail.com
-- 🌐 **Enterprise Inquiries**: garrett@sxc.codes
-- 📧 **General Support**: garrett.dillman@gmail.com
+- 🌐 **Enterprise Inquiries**: jackjonas95@gmail.com
 
 ## 📧 Contact Information
 
