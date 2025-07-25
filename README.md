@@ -474,9 +474,43 @@ Supporting ChaseWhiteRabbit NGO's mission through:
 - 🔧 **Technical Lead**: tiatheone@protonmail.com
 - 🌐 **Enterprise Inquiries**: jackjonas95@gmail.com
 
-## 📧 Contact Information
+## 🤝 Project Team & Purpose
 
-### Primary Maintainers
+This project is part of a broader suite of repositories aimed at supporting the **transient rigging and heavy lifting industry** in Western Australia and beyond.
+
+🔗 **Related Repositories**:
+
+* [`RiggerConnect-web`](https://github.com/tiation/RiggerConnect-web) - Professional networking platform
+* [`RiggerConnect-android`](https://github.com/tiation/RiggerConnect-android) - Native Android networking app
+* [`RiggerConnect-ios`](https://github.com/tiation/RiggerConnect-ios) - Native iOS networking app
+* [`RiggerConnect-capacitor`](https://github.com/tiation/RiggerConnect-capacitor) - Cross-platform mobile app
+* [`RiggerHub-web`](https://github.com/tiation/RiggerHub-web) - Operations management hub ([🌐 Live Demo](https://riggerhub-web.netlify.app/))
+* [`RiggerHub-android`](https://github.com/tiation/RiggerHub-android) - Native Android operations app
+* [`RiggerHub-ios`](https://github.com/tiation/RiggerHub-ios) - Native iOS operations app
+* [`RiggerShared`](https://github.com/tiation/RiggerShared) - Shared libraries and utilities
+* [`RiggerBackend`](https://github.com/tiation/RiggerBackend) - Core backend services and APIs
+
+📬 **Contact**:
+For questions, ideas, or collaboration inquiries, please reach out to:
+
+* **Jack Jonas** – [jackjonas95@gmail.com](mailto:jackjonas95@gmail.com)
+* **Tia** – [tiatheone@protonmail.com](mailto:tiatheone@protonmail.com)
+
+---
+
+### 🙌 About the Founders
+
+**Jack Jonas** is a seasoned rigger, crane operator, and heavy vehicle mechanic based in Karratha, Western Australia. His firsthand experience in the field shapes the practical backbone of this platform.
+
+**Tia** is a Swedish software developer and founder of the NGO **ChaseWhiteRabbit**, which is dedicated to building inclusive, systemic solutions to complex challenges.
+
+Together, they created this SaaS platform to:
+
+* Help connect riggers, doggers, and crane operators to real work opportunities.
+* Support better logistics, transparency, and compliance in the field.
+* Fund and sustain the good work being done by **ChaseWhiteRabbit** in disadvantaged communities.
+
+## 📧 Primary Maintainers
 
 For inquiries related to the Rigger ecosystem, please contact our primary maintainers:
 
