@@ -281,6 +281,9 @@ Supporting ChaseWhiteRabbit NGO's mission through:
 - 🌐 **Enterprise Inquiries**: garrett@sxc.codes
 - 📧 **General Support**: garrett.dillman@gmail.com
 
+#### For Rigger Ecosystem inquiries, contact:
+- **Primary Project Contacts**: jackjonas95@gmail.com, tiatheone@protonmail.com
+
 ## 📜 License
 
 This project is licensed under the **GNU General Public License v3.0** - see the [LICENSE](LICENSE) file for details.
